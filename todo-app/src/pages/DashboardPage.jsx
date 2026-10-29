@@ -2,6 +2,7 @@ import styled from "styled-components"
 import { Link } from "react-router-dom"
 
 import { Card, PageTitle } from "../styles/common"
+import { useTodoStore } from "../store/useTodoStore"
 
 const Stats = styled.div`
   display: grid;
@@ -19,6 +20,7 @@ const StatNumber = styled.div`
 const SectionTitle = styled.h2`
   font-size: 18px;
   margin: 24px 0 12px;
+  color: var(--app-text);
 `
 
 const CategoryGrid = styled.div`
@@ -29,11 +31,14 @@ const CategoryGrid = styled.div`
 
 const CategoryCard = styled(Link)`
   display: block;
-  background: #fff;
+  background: var(--card-bg);
+  color: var(--app-text);
+  border: 1px solid var(--border);
   border-radius: 12px;
   padding: 16px;
   text-align: center;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s, background-color 0.2s;
 
   &:hover {
     transform: translateY(-2px);
@@ -41,6 +46,9 @@ const CategoryCard = styled(Link)`
 `
 
 function DashboardPage(){
+  const todos = useTodoStore((state) => state.todos)
+  const filterd = todos.filter((todo)=>todo.done === true)
+
     return(
         <>
             <PageTitle>대시보드</PageTitle>
@@ -48,15 +56,15 @@ function DashboardPage(){
             <Stats>
               <Card>
                 <div>전체</div>
-                <StatNumber>0</StatNumber>
+                <StatNumber>{todos.length}</StatNumber>
               </Card>
               <Card>
                 <div>완료</div>
-                <StatNumber>0</StatNumber>
+                <StatNumber>{filterd.length}</StatNumber>
               </Card>
               <Card>
                 <div>남은 일</div>
-                <StatNumber>0</StatNumber>
+                <StatNumber>{todos.length - filterd.length}</StatNumber>
               </Card>
             </Stats>
 
@@ -66,7 +74,7 @@ function DashboardPage(){
             </CategoryGrid>
 
             <SectionTitle>최근 할 일</SectionTitle>
-            {/* TODO: 할일목록 표시*/}
+            {/* TODO: 할일목록 표시  날짜 기준, 3개 정도 표시*/}
         </>
     )
 }

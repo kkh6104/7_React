@@ -61,7 +61,7 @@ export const useTodoStore = create(
                                 memo,
                                 category,
                                 done: false,
-                                createAt: new Date().toISOString()
+                                createdAt: new Date().toISOString()
                             }
                         ]
                     })

@@ -3,35 +3,37 @@ import styled from "styled-components"
 import { CATEGORIES } from "../constants"
 
 const Header = styled.header`
-    background: #fff;
-    border-bottom: 1px solid #e3e7ee
+  background: var(--card-bg);
+  border-bottom: 1px solid var(--border);
 `
 
 const Nav = styled.nav`
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 14px 20px;
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    flex-wrap: wrap;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
 `
 
 const Main = styled.main`
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 24px 20px 60px;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 24px 20px 60px;
 `
 
 const StyledNavLink = styled(NavLink)`
-    color: #6b7280;
-    padding: 4px 2px;
-    
-    &.active {
-        color: #4f6ef7;
-        font-weight: 600;
-        border-bottom: 2px solid #4f6ef7;
-    }
+  color: var(--app-text);
+  opacity: 0.75;
+  padding: 4px 2px;
+
+  &.active {
+    color: #4f6ef7;
+    opacity: 1;
+    font-weight: 600;
+    border-bottom: 2px solid #4f6ef7;
+  }
 `
 
 

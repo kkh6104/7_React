@@ -18,15 +18,23 @@ const Row = styled.div`
 const Input = styled.input`
   flex: 1;
   padding: 8px 10px;
-  border: 1px solid #d5dae3;
+  border: 1px solid var(--border);
   border-radius: 8px;
+  background: var(--input-bg);
+  color: var(--input-text);
+
+  &::placeholder {
+    color: var(--input-text);
+    opacity: 0.5;
+  }
 `
 
 const Select = styled.select`
   padding: 8px 10px;
-  border: 1px solid #d5dae3;
+  border: 1px solid var(--border);
   border-radius: 8px;
-  background: #fff;
+  background: var(--input-bg);
+  color: var(--input-text);
 `
 
 function TodoForm({ defaultCategory = 'study' }){

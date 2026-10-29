@@ -9,7 +9,7 @@ const Item = styled.li`
   align-items: center;
   gap: 12px;
   padding: 12px 0;
-  border-bottom: 1px solid #eef0f4;
+  border-bottom: 1px solid var(--border);
 
   &:last-child {
     border-bottom: none;

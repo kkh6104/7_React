@@ -16,10 +16,14 @@ const Filters = styled.div`
 const FilterButton = styled.button`
   padding: 6px 12px;
   border-radius: 999px;
-  border: 1px solid #d5dae3;
+  border: 1px solid var(--border);
   cursor: pointer;
-  background: ${({ $active }) => ($active ? '#4f6ef7' : '#fff')};
-  color: ${({ $active }) => ($active ? '#fff' : '#444')};
+
+  background: ${({ $active }) =>
+    $active ? '#4f6ef7' : 'var(--card-bg)'};
+
+  color: ${({ $active }) =>
+    $active ? '#fff' : 'var(--app-text)'};
 `
 
 const FILTERS = [

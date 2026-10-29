@@ -3,8 +3,8 @@ import { Link } from "react-router-dom"
 
 import { Card, PageTitle } from "../styles/common"
 import { useTodoStore } from "../store/useTodoStore"
-import TodoItem from "../components/TodoItem"
 import { CATEGORIES } from "../constants"
+import TodoList from "../components/TodoList"
 
 const Stats = styled.div`
   display: grid;
@@ -86,9 +86,8 @@ function DashboardPage() {
       </CategoryGrid>
 
       <SectionTitle>최근 할 일</SectionTitle>
-      {recentTodos.map((todo) => (
-        <TodoItem key={todo.id} todo={todo} />
-      ))}
+      <TodoList todos={recentTodos} />
+      
     </>
   )
 }

@@ -3,6 +3,8 @@ import { Link } from "react-router-dom"
 
 import { Card, PageTitle } from "../styles/common"
 import { useTodoStore } from "../store/useTodoStore"
+import TodoItem from "../components/TodoItem"
+import { CATEGORIES } from "../constants"
 
 const Stats = styled.div`
   display: grid;
@@ -45,38 +47,50 @@ const CategoryCard = styled(Link)`
   }
 `
 
-function DashboardPage(){
+function DashboardPage() {
   const todos = useTodoStore((state) => state.todos)
-  const filterd = todos.filter((todo)=>todo.done === true)
+  const filterdDone = todos.filter((todo) => todo.done === true)
+  const recentTodos = [...todos]
+    .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+    .slice(0, 3)
 
-    return(
-        <>
-            <PageTitle>대시보드</PageTitle>
+  return (
+    <>
+      <PageTitle>대시보드</PageTitle>
 
-            <Stats>
-              <Card>
-                <div>전체</div>
-                <StatNumber>{todos.length}</StatNumber>
-              </Card>
-              <Card>
-                <div>완료</div>
-                <StatNumber>{filterd.length}</StatNumber>
-              </Card>
-              <Card>
-                <div>남은 일</div>
-                <StatNumber>{todos.length - filterd.length}</StatNumber>
-              </Card>
-            </Stats>
+      <Stats>
+        <Card>
+          <div>전체</div>
+          <StatNumber>{todos.length}</StatNumber>
+        </Card>
+        <Card>
+          <div>완료</div>
+          <StatNumber>{filterdDone.length}</StatNumber>
+        </Card>
+        <Card>
+          <div>남은 일</div>
+          <StatNumber>{todos.length - filterdDone.length}</StatNumber>
+        </Card>
+      </Stats>
 
-            <SectionTitle>카테고리별</SectionTitle>
-            <CategoryGrid>
+      <SectionTitle>카테고리별</SectionTitle>
+      <CategoryGrid>
+        {Object.entries(CATEGORIES).map(([key, { label }]) => (
+          <CategoryCard key={key} to={`/category/${key}`}>
+            {label}
+            <StatNumber>
+              {todos.filter((todo) => todo.category === key).length}
+            </StatNumber>
+          </CategoryCard>
+        ))}
+      </CategoryGrid>
 
-            </CategoryGrid>
-
-            <SectionTitle>최근 할 일</SectionTitle>
-            {/* TODO: 할일목록 표시  날짜 기준, 3개 정도 표시*/}
-        </>
-    )
+      <SectionTitle>최근 할 일</SectionTitle>
+      {recentTodos.map((todo) => (
+        <TodoItem key={todo.id} todo={todo} />
+      ))}
+    </>
+  )
 }
 
 export default DashboardPage

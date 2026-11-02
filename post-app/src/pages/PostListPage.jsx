@@ -1,15 +1,36 @@
 import { useEffect } from "react"
-import { fetchPosts } from "../api/postApi"
+import usePostStore from "../store/usePostStore"
+import { useNavigate } from "react-router-dom"
 
-function PostListPage(){
+function PostListPage() {
+    const navigate = useNavigate()
+
+    const posts = usePostStore((state)=>state.posts)
+    const fetchPosts = usePostStore((state)=>state.fetchPosts)
+    const removePost = usePostStore((state)=>state.removePost)
+    const error = usePostStore((state)=>state.error)
     
+
     useEffect(()=>{
         fetchPosts()
     }, [])
 
-    return(
+    if (error) return <p>오류: {error}</p>
+
+    return (
         <>
-            <p>PostListPage</p>
+            <ul>
+                {
+                    posts.map((data)=>(
+                        <li key={data.id}>
+                            {data?.title}
+                            {/* 수정 버튼 클릭 시 해당 게시글의 상세 페이지 (EditPostPage) */}
+                            <button onClick={()=>{ navigate(`/posts/${data.id}/edit`) }}>수정</button>
+                            <button onClick={()=>{ removePost(data.id) }}>삭제</button>
+                        </li>
+                    ))
+                }
+            </ul>
         </>
     )
 }
